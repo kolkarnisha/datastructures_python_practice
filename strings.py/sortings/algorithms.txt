@@ -1,0 +1,134 @@
+1️⃣ Binary Search
+Concept: Efficiently search a sorted list by repeatedly dividing 
+        the search interval in half.
+Time Complexity: 
+𝑂(log𝑛)
+
+python
+# Binary Search in Python
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid   # Found target
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1  # Not found
+
+# Real-time Example: Searching for a product ID in sorted inventory
+inventory = [101, 203, 305, 407, 509]
+print(binary_search(inventory, 305))  # Output: 2
+2️⃣ Bubble Sort
+Concept: Repeatedly swap adjacent elements if they are in the wrong order.
+Time Complexity: 
+𝑂
+(
+𝑛
+2
+)
+
+python
+# Bubble Sort in Python
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+# Real-time Example: Sorting student marks
+marks = [45, 67, 23, 89, 12]
+print(bubble_sort(marks))  # Output: [12, 23, 45, 67, 89]
+3️⃣ Quick Sort
+Concept: Divide and conquer — pick a pivot, partition array, recursively sort subarrays.
+Time Complexity: Average 
+𝑂
+(
+𝑛
+log
+⁡
+𝑛
+)
+, Worst 
+𝑂
+(
+𝑛
+2
+)
+
+python
+# Quick Sort in Python
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr)//2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+
+# Real-time Example: Sorting transaction amounts
+transactions = [250, 100, 400, 150, 300]
+print(quick_sort(transactions))  # Output: [100, 150, 250, 300, 400]
+4️⃣ Dijkstra’s Algorithm
+Concept: Finds shortest path from a source node to all other nodes in a weighted graph.
+Time Complexity: 
+𝑂
+(
+𝑉
+2
+)
+ or 
+𝑂
+(
+(
+𝑉
++
+𝐸
+)
+log
+⁡
+𝑉
+)
+ with priority queue.
+
+python
+import heapq
+
+# Dijkstra's Algorithm in Python
+def dijkstra(graph, start):
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    pq = [(0, start)]
+    
+    while pq:
+        current_distance, current_node = heapq.heappop(pq)
+        if current_distance > distances[current_node]:
+            continue
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(pq, (distance, neighbor))
+    return distances
+
+# Real-time Example: Shortest delivery route in a city
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+print(dijkstra(graph, 'A'))
+# Output: {'A': 0, 'B': 1, 'C': 3, 'D': 4}
+✨ These 4 algorithms cover searching, sorting, and graph shortest path — perfect for interviews and DSA prep.
+| Algorithm | Time Complexity (Best / Avg / Worst) | Space Complexity | Use Cases / Real‑World Example |
+| --- | --- | --- | --- |
+| **Binary Search** | Best: O(1) <br> Avg/Worst: O(log n) | O(1) | Searching product IDs in sorted inventory, finding a word in dictionary |
+| **Bubble Sort** | Best: O(n) <br> Avg/Worst: O(n²) | O(1) | Sorting small datasets like student marks, simple teaching demo |
+| **Quick Sort** | Best/Avg: O(n log n) <br> Worst: O(n²) | O(log n) (recursive stack) | Sorting transaction amounts, efficient general sorting |
+| **Dijkstra’s Algorithm** | O(V²) (simple) <br> O((V+E) log V) (with priority queue) | O(V+E) | Shortest delivery route in a city, GPS navigation systems |
